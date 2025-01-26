@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!-- saved from url=(0026)http://127.0.0.1:5500/html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relaxing Full-Screen Slider</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .slider-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slides {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slides img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+    }
+
+    .slides img.active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    .navigation {
+      position: absolute;
+      bottom: 30px;
+      width: 100%;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .navigation button {
+      background: rgba(255, 255, 255, 0.7);
+      border: none;
+      color: #333;
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .navigation button:hover {
+      background: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="slider-container">
+    <div class="slides">
+      <img src="./Relaxing Full-Screen Slider_files/nature-welcome-church-poster-template-4462aba18bb8695eaa7cd2ecded68fc6_screen.jpg" alt="Image 1" class="active">
+      <img src="./Relaxing Full-Screen Slider_files/th" alt="Image 2" class="">
+      <img src="./Relaxing Full-Screen Slider_files/wp4054026.jpg" alt="Image 3" class="">
+      <img src="./Relaxing Full-Screen Slider_files/th(1)" alt="Image 4" class="">
+    </div>
+    <div class="navigation">
+      <button id="prev">❮ Prev</button>
+      <button id="next">Next ❯</button>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll(".slides img");
+    const prevButton = document.getElementById("prev");
+    const nextButton = document.getElementById("next");
+    let currentIndex = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove("active");
+        if (i === index) {
+          slide.classList.add("active");
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
+    }
+
+    nextButton.addEventListener("click", nextSlide);
+    prevButton.addEventListener("click", prevSlide);
+
+    // Auto-play every 5 seconds
+    setInterval(nextSlide, 5000);
+  </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+</body></html>
